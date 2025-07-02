@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Partículas con Cámara</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  </head>
+  <body>
+    <script>
+      let video;
+      let particles = [];
+      let cols, rows;
+      let spacing = 10;
+
+      function setup() {
+        let canvas = createCanvas(windowWidth, windowHeight);
+        canvas.parent(document.body); // Asegura que el canvas se agregue correctamente
+        video = createCapture(VIDEO, () => console.log("Cámara activada"));
+        video.size(width / spacing, height / spacing);
+        video.hide();
+
+        cols = floor(width / spacing);
+        rows = floor(height / spacing);
+
+        for (let y = 0; y < rows; y++) {
+          for (let x = 0; x < cols; x++) {
+            particles.push(new Particle(x * spacing, y * spacing));
+          }
+        }
+      }
+
+      function draw() {
+        background(0);
+        video.loadPixels();
+
+        for (let i = 0; i < particles.length; i++) {
+          let x = floor(particles[i].x / spacing);
+          let y = floor(particles[i].y / spacing);
+          let index = (x + y * cols) * 4;
+
+          if (index < video.pixels.length) {
+            let r = video.pixels[index];
+            let g = video.pixels[index + 1];
+            let b = video.pixels[index + 2];
+            let brightnessValue = (r + g + b) / 3;
+
+            particles[i].update(brightnessValue, r, g, b);
+            particles[i].show();
+          }
+        }
+      }
+
+      class Particle {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.origX = x;
+          this.origY = y;
+          this.size = 4;
+          this.color = color(255);
+        }
+
+        update(brightnessValue, r, g, b) {
+          this.size = map(brightnessValue, 0, 255, 2, spacing);
+          this.color = color(r, g, b);
+        }
+
+        show() {
+          fill(this.color);
+          noStroke();
+          ellipse(this.x, this.y, this.size);
+        }
+      }
+
+      function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+        setup();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pac-Man Atardecer</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: linear-gradient(
+          to bottom,
+          #ff6f61,
+          #ffcc5e
+        ); /* Fondo atardecer */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      canvas {
+        border: 2px solid yellow;
+        z-index: 1;
+      }
+
+      #particles-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        animation: float 18s linear infinite;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0) translateX(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(18px) translateX(25px) rotate(180deg);
+        }
+        100% {
+          transform: translateY(0) translateX(0) rotate(360deg);
+        }
+      }
+
+      #score {
+        color: white;
+        font-family: "Dudu Calligraphy", cursive, sans-serif;
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="score">Puntuación: 0</div>
+    <canvas id="pacmanCanvas" width="448" height="496"></canvas>
+    <div id="particles-container"></div>
+
+    <script>
+      const canvas = document.getElementById("pacmanCanvas");
+      const ctx = canvas.getContext("2d");
+      const scoreElement = document.getElementById("score");
+      const particlesContainer = document.getElementById("particles-container");
+
+      // Partículas de fondo
+      const numParticles = 60;
+      for (let i = 0; i < numParticles; i++) {
+        const particle = document.createElement("div");
+        particle.classList.add("particle");
+        particle.style.top = `${Math.random() * 100}vh`;
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.animationDelay = `${Math.random() * 10}s`;
+        particlesContainer.appendChild(particle);
+      }
+
+      // Variables del juego
+      const grid = 32;
+      let pacmanX = grid;
+      let pacmanY = grid;
+      let pacmanSpeed = 3;
+      let pacmanAngle = 0;
+      let pacmanMouth = 0;
+      let score = 0;
+
+      // Laberinto simplificado (1 = pared, 0 = camino, 2 = punto)
+      const maze = [
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
+        [1, 2, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1],
+        [1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1],
+        [1, 2, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1],
+        [1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      ];
+      const rows = maze.length;
+      const cols = maze[0].length;
+
+      let currentDirection = null;
+      let nextDirection = null;
+
+      // Dibujar el laberinto
+      function drawMaze() {
+        for (let y = 0; y < rows; y++) {
+          for (let x = 0; x < cols; x++) {
+            const tile = maze[y][x];
+            const tileX = x * grid;
+            const tileY = y * grid;
+
+            if (tile === 1) {
+              // Pared
+              ctx.fillStyle = "blue";
+              ctx.fillRect(tileX, tileY, grid, grid);
+            } else if (tile === 2) {
+              // Punto
+              ctx.fillStyle = "yellow";
+              ctx.beginPath();
+              ctx.arc(tileX + grid / 2, tileY + grid / 2, 4, 0, Math.PI * 2);
+              ctx.fill();
+              ctx.closePath();
+            }
+          }
+        }
+      }
+
+      // Dibujar a Pac-Man
+      function drawPacman() {
+        ctx.fillStyle = "yellow";
+        ctx.beginPath();
+        const startAngle = (Math.PI / 4) * pacmanAngle + Math.PI * 2;
+        const endAngle = Math.PI * 1.75 * pacmanAngle + Math.PI * 2;
+        ctx.arc(
+          pacmanX + grid / 2,
+          pacmanY + grid / 2,
+          grid / 2 - 2,
+          startAngle + pacmanMouth,
+          endAngle - pacmanMouth
+        );
+        ctx.lineTo(pacmanX + grid / 2, pacmanY + grid / 2);
+        ctx.fill();
+        ctx.closePath();
+      }
+
+      // Mover a Pac-Man
+      function movePacman() {
+        if (nextDirection) {
+          currentDirection = nextDirection;
+          nextDirection = null;
+        }
+
+        let newX = pacmanX;
+        let newY = pacmanY;
+
+        switch (currentDirection) {
+          case "left":
+            newX -= pacmanSpeed;
+            break;
+          case "up":
+            newY -= pacmanSpeed;
+            break;
+          case "right":
+            newX += pacmanSpeed;
+            break;
+          case "down":
+            newY += pacmanSpeed;
+            break;
+        }
+
+        const gridX = Math.floor(newX / grid);
+        const gridY = Math.floor(newY / grid);
+
+        if (maze[gridY] && maze[gridY][gridX] !== 1) {
+          pacmanX = newX;
+          pacmanY = newY;
+
+          if (maze[gridY][gridX] === 2) {
+            maze[gridY][gridX] = 0;
+            score++;
+            scoreElement.textContent = `Puntuación: ${score}`;
+          }
+        }
+      }
+
+      // Control de teclado
+      document.addEventListener("keydown", (e) => {
+        switch (e.key) {
+          case "ArrowLeft":
+            nextDirection = "left";
+            break;
+          case "ArrowUp":
+            nextDirection = "up";
+            break;
+          case "ArrowRight":
+            nextDirection = "right";
+            break;
+          case "ArrowDown":
+            nextDirection = "down";
+            break;
+        }
+      });
+
+      // Bucle del juego
+      function gameLoop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawMaze();
+        movePacman();
+        drawPacman();
+
+        pacmanMouth += 0.2;
+        if (pacmanMouth > Math.PI / 3) pacmanMouth = 0;
+
+        requestAnimationFrame(gameLoop);
+      }
+
+      // Iniciar el juego
+      gameLoop();
+    </script>
+  </body>
+</html>

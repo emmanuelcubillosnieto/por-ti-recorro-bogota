@@ -1,0 +1,319 @@
+@font-face {
+  font-family: "Dudu Calligraphy";
+  src: url("https://cdn.glitch.global/3640a67b-3d7e-406b-9da8-fbf4ccf7f665/Dudu_Calligraphy.ttf?v=1746733497167")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  font-family: "Dudu Calligraphy", cursive;
+  font-size: 1.2rem;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://cdn.glitch.global/3640a67b-3d7e-406b-9da8-fbf4ccf7f665/IMG_3786.png?v=1747034186419");
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+}
+
+.logo-link {
+  margin-left: 20px;
+  display: inline-block;
+  font-family: "Dudu Calligraphy", cursive;
+  text-decoration: none;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.logo-img {
+  height: 40px;
+  cursor: pointer;
+}
+
+.icon-container {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+}
+
+.menu-icon {
+  width: 120px;
+  height: 120px;
+}
+
+.menu {
+  position: absolute;
+  top: 100px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 8px;
+  display: none;
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+.menu button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: inherit;
+  padding: 8px;
+  cursor: pointer;
+  font-family: "Dudu Calligraphy", cursive;
+}
+
+.menu button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  z-index: 2000; /* Asegura que el popup esté encima */
+}
+
+#popup.popup-music {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 111, 97, 0.8),
+    rgba(255, 204, 94, 0.8),
+    rgba(255, 245, 157, 0.8)
+  );
+}
+
+#popup.popup-map {
+  background: linear-gradient(
+    to bottom,
+    rgba(74, 20, 140, 0.8),
+    rgba(38, 50, 56, 0.8),
+    rgba(0, 0, 0, 0.8)
+  );
+}
+
+#popup.popup-camera {
+  background: linear-gradient(
+    to bottom,
+    rgba(213, 0, 249, 0.8),
+    rgba(49, 27, 146, 0.8),
+    rgba(0, 0, 0, 0.8)
+  );
+}
+
+.popup-content {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+  width: 85%;
+  height: 85%;
+  overflow: auto;
+  border-radius: 15px;
+  padding: 25px;
+  position: relative;
+  font-size: inherit;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 2001; /* Más alto que el popup para estar al frente */
+}
+
+.popup-content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.popup-content button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #e01a4f;
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+}
+
+.popup-content button:hover {
+  background-color: #c70039;
+}
+
+.content {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
+  padding: 0 15px;
+}
+
+.paragraph {
+  font-size: inherit;
+  max-width: 600px;
+  margin: 0 auto 15px auto;
+  background-color: white;
+  padding: 12px;
+  border-radius: 10px;
+  
+}
+
+.note {
+  display: inline-block;
+  color: #ff8080;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+.note:hover {
+  color: #ffffff;
+}
+
+.btn {
+  color: black;
+  background: white;
+  text-decoration: none;
+  font-size: inherit;
+  padding: 10px 20px;
+  border: 2px solid white;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+  display: inline-block;
+  margin: 10px 10px;
+  font-family: "Dudu Calligraphy", cursive;
+}
+
+.btn:hover {
+  color: white;
+  background-color: black;
+  border: 2px solid black;
+  text-decoration: none;
+}
+
+.btn:active {
+  color: white;
+  background-color: white;
+}
+
+.mensaje-fijo-derecha {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  background-color: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  max-width: 300px;
+  font-size: inherit;
+  color: #33333;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+.mensaje-fijo-izquierda {
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  background-color: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  max-width: 300px;
+  font-size: inherit;
+  color: #333;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+.floating-character-derecha {
+  position: fixed;
+  top: 50%;
+  right: 80px; /* Mueve la imagen 80px desde el borde derecho */
+  transform: translateY(-50%);
+  width: 150px; /* Ajusta tamaño si quieres */
+  pointer-events: none;
+  z-index: 1000;
+}
+
+@keyframes flotar {
+  0%,
+  100% {
+    transform: translateY(-50%) translateY(0px);
+  }
+  50% {
+    transform: translateY(-50%) translateY(-10px);
+  }
+}
+
+/* Animación de entrada para el cuadro de diálogo */
+@keyframes aparecer-dialogo {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.floating-character-izquierda {
+  position: fixed;
+  top: 40%;
+  left: 40px;
+  width: 420px;
+  transform: translateY(0);
+  pointer-events: none;
+  z-index: 1000;
+  animation: flotar 4s ease-in-out infinite;
+}
+
+.dialog-box-izquierda {
+  position: fixed;
+  top: 45%;
+  left: 380px;
+  width: auto;
+  padding: 20px 28px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-size: inherit;
+  color: #333;
+  z-index: 1100;
+  pointer-events: none;
+  animation: aparecer-dialogo 1s ease forwards, flotar 4s ease-in-out infinite;
+}

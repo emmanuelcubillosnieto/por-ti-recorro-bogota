@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Capítulo 1</title>
+    <link rel="stylesheet" href="titulos-capitulos.css" />
+  </head>
+  <body>
+    <div id="starfield"></div>
+    <div class="title-container">
+      <h1 class="typewriter">Calle 26</h1>
+    </div>
+
+    <script src="titulos-capitulos.js"></script>
+    <script>
+      let timeoutId;
+
+      function redirectToNextPage() {
+        window.location.href = "calle26-1.html";
+      }
+
+      timeoutId = setTimeout(redirectToNextPage, 15000);
+
+      document.addEventListener("click", () => {
+        clearTimeout(timeoutId);
+        redirectToNextPage();
+      });
+    </script>
+  </body>
+</html>

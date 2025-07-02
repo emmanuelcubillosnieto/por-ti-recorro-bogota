@@ -1,0 +1,302 @@
+@font-face {
+  font-family: "Dudu Calligraphy";
+  src: url("https://cdn.glitch.global/3640a67b-3d7e-406b-9da8-fbf4ccf7f665/Dudu_Calligraphy.ttf?v=1746733497167")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    #FF6B3B 0%,
+    #FF7A50 12.5%,
+    #FF9472 25%,
+    #A564C3 40%,
+    #6A29B0 50%,
+    #3A0CA3 60%,
+    #2D3B8D 70%,
+    #1E3A8A 80%,
+    #121B45 90%,
+    #0F172A 100%
+  );
+  background-size: 100% 200%;
+  background-position: 0% 100%;
+  animation: gradientMove 30s ease-in-out infinite alternate;
+  color: white;
+  font-family: "Dudu Calligraphy", cursive;
+  font-size: 1.5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 0;
+  position: relative;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1;
+  background-image: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+}
+#starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: moveUp linear infinite, blink ease-in-out infinite;
+}
+
+@keyframes moveUp {
+  0% {
+    transform: translateY(100vh);
+  }
+  100% {
+    transform: translateY(-10vh);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+
+
+
+h1 {
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+  font-family: "Dudu Calligraphy", cursive;
+  position: relative;
+  z-index: 2;
+  margin-top: 2rem;
+}
+
+p {
+  max-width: 600px;
+  margin: 2rem auto;
+  line-height: 1.6;
+  padding: 0 1rem;
+  font-family: "Dudu Calligraphy", cursive;
+  position: relative;
+  z-index: 2;
+}
+
+#butterfly-section {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#butterfly-canvas {
+  display: block;
+}
+
+.center-button {
+  text-align: center;
+  margin: 4rem 0;
+  z-index: 2;
+  position: relative;
+}
+
+.center-button a {
+  color: white;
+  background: transparent;
+  text-decoration: none;
+  font-size: inherit;
+  padding: 10px 20px;
+  border: 2px solid white;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+  display: inline-block;
+  margin: 0 20px;
+  font-family: "Dudu Calligraphy", cursive;
+}
+
+.center-button a:hover {
+  background-color: white;
+  color: black;
+}
+
+.center-button a:active {
+  background-color: #6b90c8;
+  color: white;
+}
+
+.topnav {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.topnav a {
+  display: none;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: inherit;
+}
+
+.topnav a.icon {
+  float: right;
+  display: block;
+}
+
+.topnav.responsive a {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* CONTENEDOR Y BOTÓN PRINCIPAL CENTRADO */
+#menu {
+  position: fixed;
+  bottom: 40px;
+  width: 100%;
+  z-index: 10;
+  text-align: center;
+}
+
+#menu-principal-btn {
+  max-width: 600px;
+  margin: 4rem auto 2rem;
+  text-align: center;
+}
+
+.btn {
+  color: white;
+  background: transparent;
+  text-decoration: none;
+  font-size: 1.5rem;
+  padding: 10px 20px;
+  border: 2px solid white;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+  display: inline-block;
+  margin: 40px 20px;
+  font-family: "Dudu Calligraphy", cursive;
+}
+
+.btn:hover {
+  color: black !important;
+  background-color: white;
+  text-decoration: none !important;
+}
+
+.btn:active {
+  color: white;
+  background-color: white;
+}
+
+#capitulos-list {
+  text-align: center;
+  margin-top: 5vh;
+}
+
+#capitulos-list a {
+  display: block;
+  color: white;
+  font-size: inherit;
+  text-decoration: none;
+  margin: 15px 0;
+  transition: color 0.3s, text-decoration 0.3s;
+  font-family: "Dudu Calligraphy", cursive;
+}
+
+#capitulos-list a:hover {
+  color: #f0f0f0;
+  text-decoration: underline;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 20px;
+}
+
+.content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-family: "Dudu Calligraphy", cursive;
+}
+
+.content form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 80%;
+  max-width: 400px;
+}
+
+.content input[type="text"] {
+  padding: 15px;
+  font-size: 1.5rem;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-family: "Dudu Calligraphy", cursive;
+  text-align: center;
+}
+
+.content input[type="text"]::placeholder {
+  color: #aaa;
+}
+#title-container {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.image-title {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: auto;
+}

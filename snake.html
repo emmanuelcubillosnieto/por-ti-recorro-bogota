@@ -1,0 +1,207 @@
+<html>
+<head>
+  <title>Snake</title>
+  <style>
+    @font-face {
+      font-family: "Dudu Calligraphy";
+      src: url("https://cdn.glitch.global/3640a67b-3d7e-406b-9da8-fbf4ccf7f665/Dudu_Calligraphy.ttf?v=1746733497167") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #ff6f61, #ffcc5e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    canvas {
+      border: 1px solid white;
+      z-index: 1;
+    }
+
+    #particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: #aaa;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: float 15s linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0.7;
+      }
+      50% {
+        transform: translateY(20px) translateX(30px) rotate(180deg);
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(0) translateX(0) rotate(360deg);
+        opacity: 0.7;
+      }
+    }
+
+    #score-title {
+      color: white;
+      font-family: "Dudu Calligraphy", cursive, sans-serif;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    #score {
+      color: white;
+      font-family: sans-serif;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+<div id="particles-container"></div>
+<div id="score-title">Puntuación:</div>
+<div id="score">0</div>
+<canvas width="400" height="400" id="game"></canvas>
+<script>
+var canvas = document.getElementById('game');
+var context = canvas.getContext('2d');
+var scoreElement = document.getElementById('score');
+
+var grid = 16;
+var count = 0;
+var score = 0;
+
+var snake = {
+  x: 160,
+  y: 160,
+  dx: grid,
+  dy: 0,
+  cells: [],
+  maxCells: 4
+};
+var apple = {
+  x: 320,
+  y: 320
+};
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function loop() {
+  requestAnimationFrame(loop);
+
+  if (++count < 4) {
+    return;
+  }
+
+  count = 0;
+  context.clearRect(0,0,canvas.width,canvas.height);
+
+  snake.x += snake.dx;
+  snake.y += snake.dy;
+
+  if (snake.x < 0) {
+    snake.x = canvas.width - grid;
+  }
+  else if (snake.x >= canvas.width) {
+    snake.x = 0;
+  }
+
+  if (snake.y < 0) {
+    snake.y = canvas.height - grid;
+  }
+  else if (snake.y >= canvas.height) {
+    snake.y = 0;
+  }
+
+  snake.cells.unshift({x: snake.x, y: snake.y});
+
+  if (snake.cells.length > snake.maxCells) {
+    snake.cells.pop();
+  }
+
+  context.fillStyle = 'red';
+  context.fillRect(apple.x, apple.y, grid-1, grid-1);
+
+  context.fillStyle = '#aaffaa';
+  snake.cells.forEach(function(cell, index) {
+    context.fillRect(cell.x, cell.y, grid-1, grid-1);
+
+    if (cell.x === apple.x && cell.y === apple.y) {
+      snake.maxCells++;
+      score++;
+      scoreElement.textContent = score;
+      apple.x = getRandomInt(0, 25) * grid;
+      apple.y = getRandomInt(0, 25) * grid;
+    }
+
+    for (var i = index + 1; i < snake.cells.length; i++) {
+      if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
+        snake.x = 160;
+        snake.y = 160;
+        snake.cells = [];
+        snake.maxCells = 4;
+        snake.dx = grid;
+        snake.dy = 0;
+        score = 0;
+        scoreElement.textContent = score;
+        apple.x = getRandomInt(0, 25) * grid;
+        apple.y = getRandomInt(0, 25) * grid;
+      }
+    }
+  });
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.which === 37 && snake.dx === 0) {
+    snake.dx = -grid;
+    snake.dy = 0;
+  }
+  else if (e.which === 38 && snake.dy === 0) {
+    snake.dy = -grid;
+    snake.dx = 0;
+  }
+  else if (e.which === 39 && snake.dx === 0) {
+    snake.dx = grid;
+    snake.dy = 0;
+  }
+  else if (e.which === 40 && snake.dy === 0) {
+    snake.dy = grid;
+    snake.dx = 0;
+  }
+});
+
+requestAnimationFrame(loop);
+
+const particlesContainer = document.getElementById('particles-container');
+const numParticles = 50;
+
+for (let i = 0; i < numParticles; i++) {
+  const particle = document.createElement('div');
+  particle.classList.add('particle');
+  particle.style.top = `${Math.random() * 100}vh`;
+  particle.style.left = `${Math.random() * 100}vw`;
+  particle.style.animationDelay = `${Math.random() * 10}s`;
+  particlesContainer.appendChild(particle);
+}
+</script>
+</body>
+</html>

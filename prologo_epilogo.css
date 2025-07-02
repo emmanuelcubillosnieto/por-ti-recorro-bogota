@@ -1,0 +1,68 @@
+@font-face {
+  font-family: "Dudu Calligraphy";
+  src: url("https://cdn.glitch.global/3640a67b-3d7e-406b-9da8-fbf4ccf7f665/Dudu_Calligraphy.ttf?v=1746733497167")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  background: black;
+  color: white;
+  font-family: Arial, sans-serif;
+  overflow: hidden; /* Para evitar barras de desplazamiento innecesarias */
+}
+
+h1 {
+  text-align: center;
+  margin-top: 2rem;
+  font-family: "Dudu Calligraphy", Arial, sans-serif;
+  position: relative; /* Para que esté encima del canvas */
+  z-index: 2;
+}
+
+p {
+  max-width: 600px;
+  margin: 2rem auto;
+  line-height: 1.6;
+  padding: 0 1rem;
+  font-family: "Dudu Calligraphy", Arial, sans-serif;
+  position: relative; /* Para que esté encima del canvas */
+  z-index: 2;
+}
+
+#butterfly-section {
+  position: fixed; /* Cubre toda la ventana */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Detrás del texto pero delante del fondo negro */
+  pointer-events: none; /* Permite interactuar con elementos debajo */
+}
+
+#butterfly-canvas {
+  display: block; /* Evita espacio extra debajo del canvas */
+}
+
+.center-button {
+  text-align: center;
+  margin: 4rem 0;
+  z-index: 2;
+  position: relative; /* Para que esté encima del canvas */
+}
+
+.center-button a {
+  color: white;
+  background: transparent;
+  text-decoration: none;
+  font-size: 1.5rem;
+  padding: 10px 20px;
+  border: 2px solid white;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+  display: inline-block;
+  margin: 0 20px;
+  font-family: "Dudu Calligraphy", Arial, sans-serif;
+}

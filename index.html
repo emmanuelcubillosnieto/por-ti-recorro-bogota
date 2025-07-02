@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Home</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <script defer>
+      const starfield = document.addEventListener("DOMContentLoaded", () => {
+        const starfield = document.getElementById("starfield");
+        const numStars = 600;
+
+        for (let i = 0; i < numStars; i++) {
+          const star = document.createElement("div");
+          star.classList.add("star");
+
+          const size = Math.random() * 3 + 1;
+          star.style.width = `${size}px`;
+          star.style.height = `${size}px`;
+          star.style.top = `${Math.random() * 100}vh`;
+          star.style.left = `${Math.random() * 100}vw`;
+
+          const moveDuration = 20 + Math.random() * 20;
+          const blinkDuration = 1 + Math.random() * 2;
+          const blinkDelay = Math.random() * 5;
+
+          star.style.animationDuration = `${moveDuration}s, ${blinkDuration}s`;
+          star.style.animationDelay = `0s, ${blinkDelay}s`;
+
+          starfield.appendChild(star);
+        }
+      });
+
+      function toggleMenu() {
+        const nav = document.getElementById("myTopnav");
+        nav.classList.toggle("responsive");
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="topnav" id="myTopnav">
+      <a href="capitulos.html" class="btn">Capítulos</a>
+      <a href="contacto.html" class="btn">Contacto</a>
+      <a href="javascript:void(0);" class="icon" onclick="toggleMenu()"> ☰ </a>
+    </div>
+
+ 
+<div id="title-container">
+  <img class="image-title" src="https://cdn.glitch.global/3640a67b-3d7e-406b-9da8-fbf4ccf7f665/IMG_3865.png?v=1747714251656" alt="Por ti recorro Bogotá">
+</div>
+
+
+    <div id="menu">
+      <a href="nombre.html" class="btn">Iniciar historia</a>
+    </div>
+
+    <div id="starfield"></div>
+  </body>
+
+<iframe src="/audioinicio.html" id="audio-frame" allow="autoplay" style="display:none;"></iframe>
+
+<script>
+  function iniciarMusica() {
+    let iframe = document.getElementById('audio-frame');
+    iframe.contentWindow.postMessage('playAudio', '*');
+    
+
+    document.removeEventListener('click', iniciarMusica);
+  }
+  document.addEventListener('click', iniciarMusica);
+</script>
+
+
+</html>

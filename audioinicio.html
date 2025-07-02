@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audio</title>
+    <style>
+      body {
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="bg-music" loop>
+      <source
+        src="https://cdn.glitch.global/74ef72df-f757-42e4-a99b-bcf1f5fb9393/Chet%20Baker%20-%20I%20Wish%20You%20Love.mp3?v=1747718039590"
+        type="audio/mp3"
+      />
+      Tu navegador no soporta audio.
+    </audio>
+
+    <script>
+      let audio = document.getElementById("bg-music");
+
+      if (localStorage.getItem("musicTime")) {
+        audio.currentTime = localStorage.getItem("musicTime");
+      }
+
+      audio.play();
+
+      setInterval(() => {
+        localStorage.setItem("musicTime", audio.currentTime);
+      }, 1000);
+      window.addEventListener("message", (event) => {
+        if (event.data === "playAudio") {
+          let audio = document.getElementById("bg-music");
+          audio
+            .play()
+            .catch((e) => console.log("Error reproduciendo audio:", e));
+        }
+      });
+    </script>
+  </body>
+</html>

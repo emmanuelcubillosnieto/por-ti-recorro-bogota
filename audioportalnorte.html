@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio</title>
+    <style>
+        body {
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+    <audio id="bg-music" loop>
+        <source src="https://cdn.glitch.global/3640a67b-3d7e-406b-9da8-fbf4ccf7f665/ortegon_juan_baja_fidelidad_portal_transmilenio_norte_bogota-25447.mp3?v=1747943948242" type="audio/mp3">
+        Tu navegador no soporta audio.
+    </audio>
+
+    <script>
+        let audio = document.getElementById("bg-music");
+
+
+        if (localStorage.getItem("musicTime")) {
+            audio.currentTime = localStorage.getItem("musicTime");
+        }
+
+        audio.play();
+
+        
+        setInterval(() => {
+            localStorage.setItem("musicTime", audio.currentTime);
+          
+        }, 1000);
+      window.addEventListener('message', (event) => {
+  if (event.data === 'playAudio') {
+    let audio = document.getElementById('bg-music');
+    audio.play().catch(e => console.log('Error reproduciendo audio:', e));
+  }
+});
+
+    </script>
+</body>
+</html>

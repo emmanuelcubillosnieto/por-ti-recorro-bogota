@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Capítulo Casa Ensamble</title>
+    <link rel="stylesheet" href="juego.css" />
+    <style>
+      body {
+        background-image: url("https://cdn.glitch.global/3640a67b-3d7e-406b-9da8-fbf4ccf7f665/IMG_3849.png?v=1747710563339");
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <a href="index.html" class="logo-link">
+        <img
+          src="https://cdn.glitch.global/3640a67b-3d7e-406b-9da8-fbf4ccf7f665/Vector.svg?v=1746560350579"
+          alt="Logo"
+          class="logo-img"
+        />
+      </a>
+
+      <div class="icon-container" onclick="toggleMenu()">
+        <img
+          src="https://cdn.glitch.global/3640a67b-3d7e-406b-9da8-fbf4ccf7f665/IMG_3789.png?v=1747034380331"
+          alt="Menu"
+          class="menu-icon"
+        />
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="paragraph">
+        <span id="nombreInsertado"></span><br />
+
+       Toqué la puerta con fuerza, pero no hubo respuesta. Dudé un momento… hasta que recordé que Alejandro solía dejar una llave de repuesto en la planta al lado de su puerta.
+      </div>
+      <div style="margin-top: 5px">
+        <a href="habitaciónalejandro1.html" class="btn">Tomar las llaves y entrar</a>
+        <a href="habitación_personaje_titulo.html" class="btn"
+          >Irse a casa</a
+        >
+      </div>
+    </div>
+
+    <div id="menu" class="menu">
+      <button onclick="openPopup(1)">Radio</button>
+      <button onclick="window.open('camara.html', '_blank')">Cámara</button>
+      <button onclick="window.open('snake.html', '_blank')">Juegos</button>
+    </div>
+
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <button onclick="closePopup()">X</button>
+
+        <div
+          id="iframe1"
+          class="iframe-popup"
+          style="
+            display: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          "
+        >
+          <iframe
+            src="https://tunein.com/embed/player/s2797/"
+            style="width: 100%; height: 100px"
+            scrolling="no"
+            frameborder="no"
+          ></iframe>
+          <iframe
+            src="https://tunein.com/embed/player/s84760/"
+            style="width: 100%; height: 100px"
+            scrolling="no"
+            frameborder="no"
+          ></iframe>
+          <iframe
+            src="https://tunein.com/embed/player/s86588/"
+            style="width: 100%; height: 100px"
+            scrolling="no"
+            frameborder="no"
+          ></iframe>
+          <iframe
+            src="https://tunein.com/embed/player/s101921/"
+            style="width: 100%; height: 100px"
+            scrolling="no"
+            frameborder="no"
+          ></iframe>
+          <iframe
+            src="https://tunein.com/embed/player/s190814/"
+            style="width: 100%; height: 100px"
+            scrolling="no"
+            frameborder="no"
+          ></iframe>
+          <iframe
+            src="https://tunein.com/embed/player/s85867/"
+            style="width: 100%; height: 100px"
+            scrolling="no"
+            frameborder="no"
+          ></iframe>
+          <iframe
+            src="https://tunein.com/embed/player/s121595/"
+            style="width: 100%; height: 100px"
+            scrolling="no"
+            frameborder="no"
+          ></iframe>
+          <iframe
+            src="https://tunein.com/embed/player/s330018/"
+            style="width: 100%; height: 100px"
+            scrolling="no"
+            frameborder="no"
+          ></iframe>
+          <iframe
+            src="https://tunein.com/embed/player/s17091/"
+            style="width: 100%; height: 100px"
+            scrolling="no"
+            frameborder="no"
+          ></iframe>
+          <iframe
+            src="https://tunein.com/embed/player/s330891/"
+            style="width: 100%; height: 100px"
+            scrolling="no"
+            frameborder="no"
+          ></iframe>
+          <iframe
+            src="https://tunein.com/embed/player/s331395/"
+            style="width: 100%; height: 100px"
+            scrolling="no"
+            frameborder="no"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <script src="juego.js"></script>
+  </body>
+</html>

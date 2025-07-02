@@ -1,0 +1,229 @@
+@font-face {
+  font-family: "Dudu Calligraphy";
+  src: url("https://cdn.glitch.global/3640a67b-3d7e-406b-9da8-fbf4ccf7f665/Dudu_Calligraphy.ttf?v=1746733497167")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  background: black;
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: white;
+  font-family: "Dudu Calligraphy", cursive;
+  font-size: 1.5rem; /* Estableciendo el tamaño de letra base */
+}
+
+#starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: moveUp linear infinite, blink ease-in-out infinite;
+}
+
+@keyframes moveUp {
+  0% {
+    transform: translateY(100vh);
+  }
+  100% {
+    transform: translateY(-10vh);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+#title-container {
+  text-align: center;
+  margin-top: 15vh;
+  margin-bottom: 10vh;
+}
+
+.image-title {
+  font-size: 0;
+  width: 600px;
+  height: 120px;
+  margin: 0 auto;
+  background-image: url("TU_IMAGEN_TITULO.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+h1 {
+  font-size: 2rem; /* Manteniendo un tamaño diferente para el título */
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.topnav {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.topnav a {
+  display: none;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: inherit; /* Heredando el tamaño de letra del body */
+}
+
+.topnav a.icon {
+  float: right;
+  display: block;
+}
+
+.topnav.responsive a {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#menu,
+#menu-principal-btn {
+  position: fixed;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+}
+
+#menu-principal-btn {
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 40px;
+  position: absolute;
+}
+
+.btn {
+  color: white;
+  background: transparent;
+  text-decoration: none;
+  font-size: inherit; /* Heredando el tamaño de letra del body */
+  padding: 10px 20px;
+  border: 2px solid white;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+  display: inline-block;
+  margin: 40px 20px; /* Añadiendo margen a los lados y arriba/abajo */
+  font-family: "Dudu Calligraphy", cursive;
+}
+
+.btn:hover {
+  color: black;
+  background-color: #white;
+  text-decoration: none;
+}
+
+.btn:active {
+  color: white;
+  background-color: #6b90c8;
+}
+
+#capitulos-list {
+  text-align: center;
+  margin-top: 5vh;
+}
+
+#capitulos-list a {
+  display: block;
+  color: white;
+  font-size: inherit; /* Heredando el tamaño de letra del body */
+  text-decoration: none;
+  margin: 15px 0;
+  transition: color 0.3s, text-decoration 0.3s;
+  font-family: "Dudu Calligraphy", cursive;
+}
+
+#capitulos-list a:hover {
+  color: #f0f0f0;
+  text-decoration: underline;
+}
+/* Estilos para el formulario en nombre.html (añade esto a home.css) */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh; /* Para centrar verticalmente en la pantalla */
+  padding: 20px;
+}
+
+.content h1 {
+  font-size: 2.5rem; /* Manteniendo un tamaño diferente para el título del formulario */
+  margin-bottom: 30px;
+}
+
+.content form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 80%;
+  max-width: 400px;
+}
+
+.content input[type="text"] {
+  padding: 15px;
+  font-size: inherit; /* Heredando el tamaño de letra del body */
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-family: "Dudu Calligraphy", cursive;
+  text-align: center;
+}
+
+.content input[type="text"]::placeholder {
+  color: #aaa;
+}
+
+.content button[type="submit"].btn {
+  padding: 15px 30px;
+  font-size: inherit; /* Heredando el tamaño de letra del body */
+  border: 2px solid white;
+  border-radius: 8px;
+  background: transparent;
+  color: white;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+  font-family: "Dudu Calligraphy", cursive;
+  cursor: pointer;
+  margin: 40px 20px; /* Añadiendo margen a los lados y arriba/abajo */
+}
+
+.content button[type="submit"].btn:hover {
+  background-color: #e5a3a3;
+  color: black;
+}
+
+.content button[type="submit"].btn:active {
+  background-color: #6b90c8;
+  color: white;
+}

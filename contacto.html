@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Contacto</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="starfield"></div>
+
+    <div id="title-container">
+      <h1>Contacto</h1>
+    </div>
+
+    <div id="capitulos-list">
+      <div>
+        <strong>Emmanuel Cubillos Nieto</strong><br />
+        <a href="mailto:e.cubillos@uniandes.edu.co">e.cubillos@uniandes.edu.co</a><br />
+        <a href="https://emmanuelcubillos.studio/contacto" target="_blank">emmanuelcubillos.studio/contacto</a>
+      </div>
+      <br />
+      <div>
+        <strong>Laura Alejandra Agudelo Penagos</strong><br />
+        <a href="mailto:la.agudelop1@uniandes.edu.co">la.agudelop1@uniandes.edu.co</a>
+      </div>
+      <br />
+      <div>
+        <strong>Mariana Carrillo</strong><br />
+        <a href="mailto:m.carrillo11@uniandes.edu.co">m.carrillo11@uniandes.edu.co</a>
+      </div>
+    </div>
+
+    <div id="menu-principal-btn">
+      <a href="index.html" class="btn">Menú Principal</a>
+    </div>
+
+    <script>
+      const starfield = document.getElementById("starfield");
+      const numStars = 600;
+
+      for (let i = 0; i < numStars; i++) {
+        const star = document.createElement("div");
+        star.classList.add("star");
+
+        const size = Math.random() * 3 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.top = `${Math.random() * 100}vh`;
+        star.style.left = `${Math.random() * 100}vw`;
+
+        const moveDuration = 20 + Math.random() * 20;
+        const blinkDuration = 1 + Math.random() * 2;
+        const blinkDelay = Math.random() * 5;
+
+        star.style.animationDuration = `${moveDuration}s, ${blinkDuration}s`;
+        star.style.animationDelay = `0s, ${blinkDelay}s`;
+
+        starfield.appendChild(star);
+      }
+    </script>
+    
+  <iframe src="/audioinicio.html" id="audio-frame" allow="autoplay" style="display:none;"></iframe>
+
+<script>
+  function iniciarMusica() {
+    let iframe = document.getElementById('audio-frame');
+    iframe.contentWindow.postMessage('playAudio', '*');
+    
+
+    document.removeEventListener('click', iniciarMusica);
+  }
+  document.addEventListener('click', iniciarMusica);
+</script>
+
+    
+  </body>
+</html>

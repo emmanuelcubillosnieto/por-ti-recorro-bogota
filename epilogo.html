@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Prólogo</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section id="butterfly-section">
+      <div id="butterfly-canvas"></div>
+    </section>
+
+    <h1>Epilogo: <span id="nombreInsertado"></span></h1>
+
+    <p>
+      Tus miedos se hicieron realidad, la tormenta te lo arrancó de los brazos.
+      A él lo consumió el agobio, mientras a ti te devoraba el amor. Cruzaste
+      Bogotá buscando su mirada entre todos los ojos. Él también cruzaba la
+      ciudad, pero con la vista nublada por el dolor. Llevaba esa mirada de
+      quien ya no puede más. Alguna vez, Alejandro te dijo: "Necesito un respiro
+      de esta ciudad". No supiste a qué se refería… hasta ese día. Hasta hoy.
+    </p>
+
+    <div class="center-button">
+      <a href="index.html">Menú principal</a>
+    </div>
+
+    <script>
+      // Insertar el nombre del usuario al lado de "Alejandro"
+      const nombre = localStorage.getItem("nombreUsuario");
+      const spanNombre = document.getElementById("nombreInsertado");
+
+      if (nombre) {
+        spanNombre.textContent = ` ${nombre}`; // Se quitaron los paréntesis
+      }
+
+      // Animación de mariposas
+      let butterflies = [];
+
+      function setup() {
+        let canvas = createCanvas(windowWidth, windowHeight);
+        canvas.parent("butterfly-canvas");
+        for (let i = 0; i < 30; i++) {
+          butterflies.push(new Butterfly());
+        }
+      }
+
+      function draw() {
+        clear();
+        background(0, 0, 0, 0);
+        for (let b of butterflies) {
+          b.update();
+          b.display();
+        }
+      }
+
+      class Butterfly {
+        constructor() {
+          this.x = random(width);
+          this.y = random(height);
+          this.size = random(20, 40);
+          this.speed = random(0.5, 1.5);
+          this.angle = random(TWO_PI);
+          this.wiggleSpeed = random(0.1, 0.2);
+          this.offset = random(1000);
+
+          this.bodyColor = color(80, 60, 40, 200);
+          this.wingColor1 = color(
+            random(200, 255),
+            random(50, 200),
+            random(150, 255),
+            180
+          );
+          this.wingColor2 = color(
+            random(100, 255),
+            random(100, 255),
+            random(100, 255),
+            180
+          );
+        }
+
+        update() {
+          let dx = mouseX - this.x;
+          let dy = mouseY - this.y;
+          let angleToMouse = atan2(dy, dx);
+          this.x += cos(angleToMouse) * this.speed;
+          this.y += sin(angleToMouse) * this.speed;
+          this.angle += random(-0.1, 0.1);
+        }
+
+        display() {
+          push();
+          translate(this.x, this.y);
+          rotate(this.angle);
+
+          let flutter =
+            sin(frameCount * this.wiggleSpeed + this.offset) * this.size * 0.6;
+
+          noStroke();
+          fill(this.wingColor1);
+          ellipse(
+            -flutter - this.size * 0.5,
+            -this.size * 0.2,
+            this.size,
+            this.size * 0.8
+          );
+          ellipse(
+            flutter + this.size * 0.5,
+            -this.size * 0.2,
+            this.size,
+            this.size * 0.8
+          );
+
+          fill(this.wingColor2);
+          ellipse(
+            -flutter - this.size * 0.5,
+            this.size * 0.2,
+            this.size * 0.8,
+            this.size * 0.5
+          );
+          ellipse(
+            flutter + this.size * 0.5,
+            this.size * 0.2,
+            this.size * 0.8,
+            this.size * 0.5
+          );
+
+          fill(this.bodyColor);
+          rectMode(CENTER);
+          rect(0, 0, this.size * 0.15, this.size);
+          pop();
+        }
+      }
+
+      function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+      }
+    </script>
+
+    <iframe
+      src="/audioinicio.html"
+      id="audio-frame"
+      allow="autoplay"
+      style="display: none"
+    ></iframe>
+
+    <script>
+      function iniciarMusica() {
+        let iframe = document.getElementById("audio-frame");
+        iframe.contentWindow.postMessage("playAudio", "*");
+
+        document.removeEventListener("click", iniciarMusica);
+      }
+      document.addEventListener("click", iniciarMusica);
+    </script>
+  </body>
+</html>

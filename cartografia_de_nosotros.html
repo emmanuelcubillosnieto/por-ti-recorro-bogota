@@ -1,0 +1,144 @@
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuestra historia</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      #particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 200vh;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .particle {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        opacity: 0;
+        animation: rise linear infinite, blink ease-in-out infinite;
+      }
+
+      @keyframes rise {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-100vh);
+        }
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+        padding: 4rem 2rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      iframe {
+        width: 100%;
+        max-width: 1200px;
+        height: 70vh;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .home-icon {
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+        z-index: 2;
+      }
+
+      .home-icon img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="home-icon" href="index.html">
+      <img
+        src="https://cdn.glitch.global/3640a67b-3d7e-406b-9da8-fbf4ccf7f665/Vector.svg?v=1746560350579"
+        alt="Inicio"
+      />
+    </a>
+
+    <div id="particles"></div>
+
+    <div class="container">
+      <h1 class="title">Nuestra historia</h1>
+      <iframe
+        src="https://uploads.knightlab.com/storymapjs/213d8e58c81067e515cf38c307de3d38/cartografia-de-nosotros-2/draft.html"
+        allowfullscreen
+      ></iframe>
+      <a href="casa_ensamble_titulo.html" class="btn">Continuar</a>
+    </div>
+
+    <script>
+      const particlesContainer = document.getElementById("particles");
+      const numParticles = 150;
+
+      for (let i = 0; i < numParticles; i++) {
+        const particle = document.createElement("div");
+        particle.classList.add("particle");
+
+        const size = Math.random() * 6 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.top = `${Math.random() * 200}vh`;
+        particle.style.left = `${Math.random() * 100}vw`;
+
+        const riseDuration = 30 + Math.random() * 30;
+        const blinkDuration = 3 + Math.random() * 3;
+        const blinkDelay = Math.random() * 5;
+
+        particle.style.animationDuration = `${riseDuration}s, ${blinkDuration}s`;
+        particle.style.animationDelay = `0s, ${blinkDelay}s`;
+
+        particlesContainer.appendChild(particle);
+      }
+
+      window.addEventListener("scroll", () => {
+        const scrollY = window.scrollY;
+        particlesContainer.style.transform = `translateY(${scrollY * 0.2}px)`;
+      });
+    </script>
+
+    <iframe
+      src="/audioinicio.html"
+      id="audio-frame"
+      allow="autoplay"
+      style="display: none"
+    ></iframe>
+
+    <script>
+      function iniciarMusica() {
+        let iframe = document.getElementById("audio-frame");
+        iframe.contentWindow.postMessage("playAudio", "*");
+
+        document.removeEventListener("click", iniciarMusica);
+      }
+      document.addEventListener("click", iniciarMusica);
+    </script>
+  </body>
+</html>

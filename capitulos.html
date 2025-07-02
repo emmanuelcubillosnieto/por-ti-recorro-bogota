@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Capítulos</title>
+    <meta name="description" content="Capítulos de 'Por ti recorro Bogotá'" />
+    <link
+      rel="icon"
+      href="https://glitch.com/edit/favicon-app.ico"
+      type="image/x-icon"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="/script.js" defer></script>
+  </head>
+
+  <body>
+    <div id="title-container">
+      <h1>Capítulos</h1>
+    </div>
+
+    <div id="capitulos-list">
+      <a href="prologo.html">Prólogo: Tú y Yo</a>
+      <a href="casa_ensamble_titulo.html">1. Casa Ensamble</a>
+      <a href="habitación_personaje_titulo.html">2. Mi Habitación</a>
+      <a href="casa_alejandro_título.html">3. Habitación de Alejandro</a>
+      <a href="calle_26_titulo.html">4. Calle 26</a>
+      <a href="parque_titulo.html">5. Buzón</a>
+      <a href="portal_norte_titulo.html">6. Portal Norte</a>
+      <a href="epilogo.html">Epílogo: Yo</a>
+    </div>
+
+    <div id="menu-principal-btn">
+      <a href="index.html" class="btn">Menú Principal</a>
+    </div>
+
+    <div id="starfield"></div>
+
+    <script>
+      const starfield = document.getElementById("starfield");
+      const numStars = 1000;
+
+      for (let i = 0; i < numStars; i++) {
+        const star = document.createElement("div");
+        star.classList.add("star");
+
+        const size = Math.random() * 2 + 0.5;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.top = `${Math.random() * 100}vh`;
+        star.style.left = `${Math.random() * 100}vw`;
+
+        const moveDuration = 25 + Math.random() * 15;
+        const blinkDuration = 1 + Math.random() * 3;
+        const blinkDelay = Math.random() * 5;
+
+        star.style.animationDuration = `${moveDuration}s, ${blinkDuration}s`;
+        star.style.animationDelay = `0s, ${blinkDelay}s`;
+
+        starfield.appendChild(star);
+      }
+    </script>
+
+    <iframe
+      src="/audioinicio.html"
+      id="audio-frame"
+      allow="autoplay"
+      style="display: none"
+    ></iframe>
+
+    <script>
+      function iniciarMusica() {
+        let iframe = document.getElementById("audio-frame");
+        iframe.contentWindow.postMessage("playAudio", "*");
+
+        document.removeEventListener("click", iniciarMusica);
+      }
+      document.addEventListener("click", iniciarMusica);
+    </script>
+  </body>
+</html>

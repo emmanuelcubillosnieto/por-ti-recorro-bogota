@@ -1,0 +1,120 @@
+@font-face {
+  font-family: "Dudu Calligraphy";
+  src: url("https://cdn.glitch.global/3640a67b-3d7e-406b-9da8-fbf4ccf7f665/Dudu_Calligraphy.ttf?v=1746733497167")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(
+    to top,
+    #ff6b3b 0%,
+    #ff7a50 12.5%,
+    #ff9472 25%,
+    #a564c3 40%,
+    #6a29b0 50%,
+    #3a0ca3 60%,
+    #2d3b8d 70%,
+    #1e3a8a 80%,
+    #121b45 90%,
+    #0f172a 100%
+  );
+  background-size: 100% 200%;
+  background-position: 0% 0%;
+  animation: gradientMove 15s ease-in-out infinite alternate;
+  overflow: hidden;
+  font-family: "Dudu Calligraphy", cursive;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+.title-container {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#starfield {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: moveStar linear infinite, blinkStar ease-in-out infinite;
+}
+
+@keyframes moveStar {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes blinkStar {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+h1.typewriter {
+  font-size: 5em;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid white;
+  width: 0;
+  animation: typing 4s steps(30, end) forwards,
+    blink-caret 0.75s step-end infinite;
+  font-family: "Dudu Calligraphy", cursive;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: white;
+  }
+}
